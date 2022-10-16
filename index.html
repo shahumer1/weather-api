@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div id="main">
+  <h1>WEATHER APP</h1>
+  <form onsubmit="getWeather();return false">
+    <input type="text" id="cityName">
+    <button type="submit">Search</button>
+
+</form>
+<div id="result"></div>
+<div id="temprature"></div>
+<div id="clouds"></div>
+<div id="wspeed"></div>
+    </div>
+
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+    <script>
+
+       let getWeather = ()=>{
+        let cityName= document.querySelector("#cityName").value
+
+      
+
+    axios.get(`https://api.openweathermap.org/data/2.5/weather?units=metric&appid=dfc0fb5bfbcc71846ac28b8203cb76b8&q=${cityName}`)
+    .then(function (response) {
+      // handle success
+      console.log("response is sucess" );
+      console.log(response.data);
+      document.querySelector("#result").innerHTML =  `<h1>${response.data.name}</h1>`
+   
+    document.querySelector("#temprature").innerHTML =  `<h1>${response.data.main.temp}&#8451</h1>`
+    document.querySelector("#clouds").innerHTML =  `<h1>Clouds:${response.data.clouds.all}</h1>`
+    document.querySelector("#wspeed").innerHTML = `<h1>WIND SPEED:${response.data.wind.speed}</h1>`
+    })
+   
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+   
+}
+
+</script>
+</body>
+</html>
